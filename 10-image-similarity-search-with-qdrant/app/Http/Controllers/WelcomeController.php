@@ -11,33 +11,31 @@ class WelcomeController extends Controller
 {
     public function index(Request $request)
     {
-        $imagePaths = Storage::disk('local')->files('cat');
-        $imagePaths = Arr::take($imagePaths, 10);
+        $basePath = 'cat';
 
-        $selectedImage = null;
+        $imagePaths = Storage::disk('local')->files($basePath);
+        $imagePaths = Arr::take($imagePaths, 500);
 
-        if ($request->has('selected_image')) {
-            $selectedImagePath = $request->input('selected_image');
-            $file = Storage::disk('local')->get($selectedImagePath);
+        $selected = null;
 
-            $selectedImage = [
-                'path' => $selectedImagePath,
+        if ($request->has('selected')) {
+            $selectedImagePath = $request->input('selected');
+            $file = Storage::disk('local')->get("$basePath/$selectedImagePath");
+
+            $selected = [
+                'path' => basename($selectedImagePath),
                 'base64' => Str::toBase64($file),
             ];
         }
 
-        $images = collect($imagePaths)->map(function (string $imagePath) {
-            $file = Storage::disk('local')->get($imagePath);
-
-            return [
-                'path' => $imagePath,
-                'base64' => Str::toBase64($file),
-            ];
-        });
+        $images = collect($imagePaths)->map(fn (string $imagePath) => [
+            'path' => basename($imagePath),
+            'base64' => Str::toBase64(Storage::disk('local')->get($imagePath)),
+        ]);
 
         return view('welcome', [
-            'selectedImage' => $selectedImage,
-            'images' => $images,
+            'selected' => $selected,
+            'images' => collect($images)->take(50),
         ]);
     }
 }
