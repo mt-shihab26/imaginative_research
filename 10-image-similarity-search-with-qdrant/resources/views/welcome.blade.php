@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Mau</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="flex flex-col p-5 gap-8 min-h-screen">
@@ -11,7 +11,7 @@
             <div class="w-full">
                 <div class="flex flex-col gap-6">
                     <div class="flex flex-col gap-2">
-                        <h2 class="text-xl font-semibold">Selected Image</h2>
+                        <h2 class="text-xl font-semibold">Selected Image: {{ $selected["name"] }}</h2>
                         <div class="flex justify-center p-4 bg-gray-100 rounded-lg">
                             <img src="data:image/jpeg;base64,{{ $selected['base64'] }}" class="max-w-sm" />
                         </div>
@@ -30,7 +30,7 @@
                             class="w-full rounded-lg border-2 border-transparent hover:border-blue-500 transition-all"
                         />
                         <form method="GET" action="/" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <input type="hidden" name="selected" value="{{ $image['path'] }}" />
+                            <input type="hidden" name="selected" value="{{ $image['name'] }}" />
                             <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded-md">
                                 Select
                             </button>
