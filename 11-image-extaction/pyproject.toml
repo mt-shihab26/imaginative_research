@@ -1,0 +1,14 @@
+[project]
+name = "11-image-extaction"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.4.4",
+    "opencv-python-headless>=4.13.0.92",
+    "pillow>=12.2.0",
+    "ultralytics>=8.4.41",
+]
+
+[project.scripts]
+extract = "extract:main"
