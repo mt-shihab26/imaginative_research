@@ -27,3 +27,4 @@ tmp*
 uploads
 vendor
 mysql_data
+target
