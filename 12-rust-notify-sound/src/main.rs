@@ -6,7 +6,7 @@ use std::thread;
 use std::time::Duration;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let stream_handle = rodio::OutputStreamBuilder::open_default_stream()?;
+    let stream_handle = rodio::DeviceSinkBuilder::open_default_sink()?;
     let mixer = stream_handle.mixer();
 
     let beep1 = {
